@@ -31,6 +31,7 @@ public class Animation4Thread extends JFrame {
     Action drawAction;
 
     public Animation4Thread() {
+    	drawPanel.setBackground(Color.gray); //i feel so much better now.
     	drawAction = new AbstractAction(){
     		public void actionPerformed(ActionEvent e){
     			drawPanel.repaint();
@@ -43,11 +44,17 @@ public class Animation4Thread extends JFrame {
     	for(int i = 0; i < frameCount; i++)
     		pics[i] = img.getSubimage(picSize*i, 0, picSize, picSize);
    
+    	
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	setSize(frameStartSize, frameStartSize);
-    	this.setBackground(Color.gray);
     	setVisible(true);
+ 
     	pack();
+    	try{
+    		Thread.sleep(5000);
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
     }
 	
     @SuppressWarnings("serial")
