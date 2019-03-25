@@ -4,8 +4,9 @@ import java.util.HashMap;
 public class EnumWAttributes {
 
 	//DON'T USE THIS FILE, this is just some examples of how to use our enumerated type.
-	
+	/*
 	public static void main(String[] args) {
+		System.out.println("tesraiofn");
 		// TODO Auto-generated method stub
 		
 		int data[] = {3,4};
@@ -29,6 +30,6 @@ public class EnumWAttributes {
 			System.out.println("enum types work in switch statements!");
 		}
 
-	}
+	}*/
 
 }

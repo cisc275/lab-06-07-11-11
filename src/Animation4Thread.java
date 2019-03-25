@@ -74,6 +74,7 @@ public class Animation4Thread extends JFrame {
 	}
     
 	public static void main(String[] args) {
+		System.out.println("testing git push");
 		EventQueue.invokeLater(new Runnable(){
 			public void run(){
 				Animation4Thread a = new Animation4Thread();
