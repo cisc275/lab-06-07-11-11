@@ -47,6 +47,7 @@ public class View extends JPanel{
 	 * Constructor for our view, initializes stringmap, animation map, and all other attributes.
 	 */
 	public View(){
+		System.out.println("CREATED NEW VIEW");
 		stringMap = new HashMap<>();
 		animationMap = new HashMap<>();
 		xloc=0;

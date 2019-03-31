@@ -21,11 +21,11 @@ public class Animation4Thread extends JFrame {
     BufferedImage[] pics;
     int xloc = 100;
     int yloc = 100;
-    final int xIncr = 1;
-    final int yIncr = 1;
+    final int xIncr = 8;
+    final int yIncr = 2;
     final int picSize = 165;
     final int frameStartSize = 800;
-    final int drawDelay = 50; //msec
+    final int drawDelay = 100; //msec
     
     DrawPanel drawPanel = new DrawPanel();
     Action drawAction;
@@ -50,11 +50,11 @@ public class Animation4Thread extends JFrame {
     	setVisible(true);
  
     	pack();
-    	try{
-    		Thread.sleep(5000);
-    	}catch(Exception e){
-    		e.printStackTrace();
-    	}
+//    	try{
+//    		Thread.sleep(5000);
+//    	}catch(Exception e){
+//    		e.printStackTrace();
+//    	}
     }
 	
     @SuppressWarnings("serial")
@@ -74,11 +74,12 @@ public class Animation4Thread extends JFrame {
 	}
     
 	public static void main(String[] args) {
-		System.out.println("testing git push - jake");
 		EventQueue.invokeLater(new Runnable(){
 			public void run(){
+				
 				Animation4Thread a = new Animation4Thread();
 				Timer t = new Timer(a.drawDelay, a.drawAction);
+				System.out.println("miguel testing orc movement");
 				t.start();
 			}
 		});
