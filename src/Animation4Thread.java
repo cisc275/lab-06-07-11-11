@@ -74,15 +74,26 @@ public class Animation4Thread extends JFrame {
 	}
     
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable(){
-			public void run(){
-				
-				Animation4Thread a = new Animation4Thread();
-				Timer t = new Timer(a.drawDelay, a.drawAction);
-				System.out.println("miguel testing orc movement");
-				t.start();
-			}
-		});
+		Controller game_controller = new Controller();
+		game_controller.start(); //Miguel: placed the new Runnable(){ public void run(){ in controller's start method
+		
+		
+		
+		
+		
+//		EventQueue.invokeLater(new Runnable(){
+//			game_controller.
+//		});
+//		
+		
+//		public void run(){
+////			Animation4Thread a = new Animation4Thread();
+////			Timer t = new Timer(a.drawDelay, a.drawAction);
+////			System.out.println("miguel testing orc movement");
+////			t.start();
+//			
+//		}
+		
 	}
     
     //Read image from file and return

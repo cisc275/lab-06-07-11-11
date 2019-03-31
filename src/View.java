@@ -1,11 +1,17 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -55,11 +61,40 @@ public class View extends JPanel{
 		d=Direction.EAST;
 		stringMapCreate();
 		loadImages();
+		
+		//Setting the size of the view
+//		this.setSize(this.frameWidth, this.frameHeight);
+		this.setBackground(Color.blue);
+		
+		//GridLayout
+		GridLayout grid_layout = new GridLayout(2,0);
+		
+		
+		
+		//JFrame (removed JFrame's BorderLayout and instead using GridLayout)
 		frame = new JFrame();
-		frame.getContentPane().add(this);
-		frame.setBackground(Color.gray);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(frameWidth, frameHeight);
+		frame.setSize(frameWidth, frameHeight+200);
+		frame.setBackground(Color.gray);
+		frame.setLayout(grid_layout);
+		
+		
+		
+		//JButton
+		JPanel hold_button = new JPanel();
+		hold_button.setBackground(Color.red);
+//		hold_button.setSize(frameWidth, 10);
+		JButton movement_button = new JButton("Stop/Move");
+		movement_button.setVisible(true);
+		movement_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				;
+			}
+		});
+		hold_button.add(movement_button);
+		
+		frame.add(this);
+		frame.add(hold_button);
 		frame.setVisible(true);
 		
 	}
@@ -84,7 +119,7 @@ public class View extends JPanel{
 		this.xloc=xloc;
 		this.yloc=yloc;
 		this.d=d;
-		frame.repaint();
+		this.repaint();
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
