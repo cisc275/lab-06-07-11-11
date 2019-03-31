@@ -83,10 +83,8 @@ public class View extends JPanel{
 		
 		
 		
-//		JButton (Issue: no way to pass arguments to actionListener)
-//		Solution: either make custom class or use putClientProperty(pass keys/values)
+		//JButton
 		JButton movement_button = new JButton("Stop/Move");
-		movement_button.putClientProperty("picNum",this.picNum);
 		movement_button.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
@@ -210,6 +208,7 @@ public class View extends JPanel{
 	}
 	
 	
+	//LAB6 (Getting the movement/setting the movement)
 	public boolean getMoving() {
 		return this.isMoving;
 	}
