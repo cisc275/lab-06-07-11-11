@@ -62,39 +62,35 @@ public class View extends JPanel{
 		stringMapCreate();
 		loadImages();
 		
-		//Setting the size of the view
-//		this.setSize(this.frameWidth, this.frameHeight);
-		this.setBackground(Color.blue);
+
 		
-		//GridLayout
-		GridLayout grid_layout = new GridLayout(2,0);
-		
-		
-		
-		//JFrame (removed JFrame's BorderLayout and instead using GridLayout)
+		//JFrame 
 		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(frameWidth, frameHeight+200);
 		frame.setBackground(Color.gray);
-		frame.setLayout(grid_layout);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
+		frame.setSize(frameWidth, frameHeight+50);
+		Container current_layout = frame.getContentPane(); //get's the JFrame's BorderLayout Container to add elements
+		
+		
+		//This (JPanel)
+		this.setBackground(Color.gray); //set's background of this view to gray
 		
 		
 		
 		//JButton
-		JPanel hold_button = new JPanel();
-		hold_button.setBackground(Color.red);
-//		hold_button.setSize(frameWidth, 10);
 		JButton movement_button = new JButton("Stop/Move");
-		movement_button.setVisible(true);
 		movement_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				;
 			}
 		});
-		hold_button.add(movement_button);
 		
-		frame.add(this);
-		frame.add(hold_button);
+		//Adding the this(JPanel) and JButton to the JFrame's container 
+		current_layout.add(this, BorderLayout.PAGE_START);
+		current_layout.add(movement_button, BorderLayout.PAGE_END);
+		
+		//Makes the JFrame visible (and all of the components)
 		frame.setVisible(true);
 		
 	}
@@ -108,18 +104,30 @@ public class View extends JPanel{
 	 * 
 	 * overrided paint method that gets called from update.
 	 */
-	public void paint(Graphics g){
+	public void paintComponent(Graphics g){
+		super.paintComponent(g); //IMPORTANT: tells the super class' paintComponent to draw the background gray 
+								//otherwise background stays white
+		
+		System.out.println("PAINT"); //testing
+		
 		picNum = (picNum + 1) % frameCount;
+		g.setColor(Color.gray);
 		g.drawImage(getAnimation(d)[picNum], xloc, yloc, Color.gray, this);
 	}
 	/*
 	 * sends the xloc, yloc, and direction to the attributes, and calls repaint.
 	 */
-	public void update(int xloc,int yloc,Direction d){
+	public void updategame(int xloc,int yloc,Direction d){
+		System.out.println("UPDATE");
 		this.xloc=xloc;
 		this.yloc=yloc;
 		this.d=d;
-		this.repaint();
+		
+		frame.repaint(); //repaints the whole JFrame and all of its components
+		
+		System.out.println(frame.getBackground().toString());
+		
+		
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
