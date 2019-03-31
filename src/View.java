@@ -15,7 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-/**
+/**f
  * View: Contains everything about graphics and images
  * Know size of world, which images to load etc
  *
