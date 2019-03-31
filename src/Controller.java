@@ -18,7 +18,14 @@ public class Controller {
 			//increment the x and y coordinates, alter direction if necessary
 			model.updateLocationAndDirection();
 			//update the view
-			view.updategame(model.getX(), model.getY(), model.getDirect());
+			
+			
+			
+			
+			//Button Movement (pressing JButton from view tells model not to move or to move..)
+			model.setMoving(view.getMoving());
+			view.update(model.getX(), model.getY(), model.getDirect());
+			
 		}
 	}
 }

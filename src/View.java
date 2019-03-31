@@ -49,11 +49,16 @@ public class View extends JPanel{
 	private Direction d = Direction.SOUTHEAST; // direction with default on southeast
 	private int picNum = 0; // the current image of the current animation.
 	
+	public int testvelx = 5;
+	public int testvely = 2;
+	
+	//Testing
+	private boolean isMoving = true;
+
 	/*
 	 * Constructor for our view, initializes stringmap, animation map, and all other attributes.
 	 */
 	public View(){
-		System.out.println("CREATED NEW VIEW");
 		stringMap = new HashMap<>();
 		animationMap = new HashMap<>();
 		xloc=0;
@@ -78,11 +83,19 @@ public class View extends JPanel{
 		
 		
 		
-		//JButton
+//		JButton (Issue: no way to pass arguments to actionListener)
+//		Solution: either make custom class or use putClientProperty(pass keys/values)
 		JButton movement_button = new JButton("Stop/Move");
+		movement_button.putClientProperty("picNum",this.picNum);
 		movement_button.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
-				;
+				if(getMoving() == false) {
+					setMoving(true);
+				}
+				else {
+					setMoving(false);
+				}
 			}
 		});
 		
@@ -105,35 +118,44 @@ public class View extends JPanel{
 	 * overrided paint method that gets called from update.
 	 */
 	public void paintComponent(Graphics g){
-		super.paintComponent(g); //IMPORTANT: tells the super class' paintComponent to draw the background gray 
-								//otherwise background stays white
-		
-		System.out.println("PAINT"); //testing
-		
-		picNum = (picNum + 1) % frameCount;
-		g.setColor(Color.gray);
-		g.drawImage(getAnimation(d)[picNum], xloc, yloc, Color.gray, this);
+		try {
+			super.paintComponent(g); //IMPORTANT: tells the super class' paintComponent to draw the background gray 
+			//otherwise background stays white
+			g.setColor(Color.gray);
+			g.drawImage(getAnimation(d)[picNum], xloc, yloc, Color.gray, this);
+		}
+		catch(Exception e){
+			;
+		}
 	}
 	/*
 	 * sends the xloc, yloc, and direction to the attributes, and calls repaint.
 	 */
-	public void updategame(int xloc,int yloc,Direction d){
-		System.out.println("UPDATE");
-		this.xloc=xloc;
-		this.yloc=yloc;
-		this.d=d;
-		
-		frame.repaint(); //repaints the whole JFrame and all of its components
-		
-		System.out.println(frame.getBackground().toString());
-		
-		
+	
+	//Calls the frame.repaint() method every 100ms
+	public void redraw() {
+		frame.repaint();
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public void update(int xloc,int yloc,Direction d){
+		this.redraw(); //calls the frame.repaint() method every 100ms
+		
+		//If the Model is moving, then update its image frames, and location
+		//(Also notifies the Model to update the movement or not)
+		if(getMoving()) {
+			this.xloc=xloc;
+			this.yloc=yloc;
+			this.d=d;
+			this.picNum =(picNum + 1) % frameCount;
+		}
+	}
+	
 	/*
 	 * just to make life easier, the creation of our string map.
 	 */
@@ -185,6 +207,15 @@ public class View extends JPanel{
 	}
 	public int getImageHeight(){
 		return imgHeight;
+	}
+	
+	
+	public boolean getMoving() {
+		return this.isMoving;
+	}
+	
+	public void setMoving(boolean ismoving) {
+		this.isMoving = ismoving;
 	}
 	
 	

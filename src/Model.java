@@ -25,6 +25,9 @@ public class Model{
 	private int imgWidth;//pixel width of the image
 	private int imgHeight; // pixel height of the image
 	
+	//LAB6
+	private boolean isMoving = false; //Keeps track whether or not the orc is moving
+	
 	
 	/*
 	 * constructor for our model, takes in data that will come from our view.
@@ -34,36 +37,42 @@ public class Model{
 		frameHeight=height;
 		this.imgWidth = imgWidth;
 		this.imgHeight = imgHeight;
+		
+		
+//		//Checking for initial movement
+//		if(Math.abs(xIncr)>0 || Math.abs(yIncr)>0) {
+//			this.isMoving = true;
+//		}
+//		else {
+//			this.isMoving = false;
+//		}
 	}
 	
 	
-	public int getX(){
-		return xloc;
-	}
-	public int getY(){
-		return yloc;
-	}
 	/*
 	 * xMult and yMult make this trivial.
 	 * changes the direction based on the boundaries of the screen, and 
 	 * changes the location based on the current direction.
 	 */
 	public void updateLocationAndDirection(){
-		if(xloc>=(frameWidth-imgWidth)){
-			xMult=-1;
+		//if the orc is moving then update its movement otherwise do not do anything
+		if(getMoving()) {
+			if(xloc>=(frameWidth-imgWidth)){
+				xMult=-1;
+			}
+			if(yloc>=(frameHeight-imgHeight)){
+				yMult=-1;
+			}
+			if(xloc+xIncr<0){
+				xMult=1;
+			}
+			if(yloc+yIncr<0){
+				yMult=1;
+			}
+			updateDirection();
+			xloc+=xIncr*xMult;
+			yloc+=yIncr*yMult;
 		}
-		if(yloc>=(frameHeight-imgHeight)){
-			yMult=-1;
-		}
-		if(xloc+xIncr<0){
-			xMult=1;
-		}
-		if(yloc+yIncr<0){
-			yMult=1;
-		}
-		updateDirection();
-		xloc+=xIncr*xMult;
-		yloc+=yIncr*yMult;
 		
 	}
 	/*
@@ -94,6 +103,13 @@ public class Model{
 	public int getYloc() {
 		return yloc;
 	}
+	
+	public int getX(){
+		return xloc;
+	}
+	public int getY(){
+		return yloc;
+	}
 
 	public int getFrameWidth() {
 		return frameWidth;
@@ -111,6 +127,15 @@ public class Model{
 		return imgHeight;
 	}
 	
+	//LAB6
+	public boolean getMoving() {
+		return this.isMoving;
+	}
+	
+	
+	public void setMoving(boolean moving) {
+		this.isMoving = moving;
+	}
 	
 	
 }
