@@ -12,6 +12,11 @@ import java.awt.image.BufferedImage;
  **/
 public class Model{
 	Direction direct; //direction(enum)
+	private int action = 0; //for now, this will be an integer. however, this should be an enumerated type.
+							//it represents the current action of our orc.
+							//0 = normal
+							//1 = jump
+							//2 = fire
 	private int xloc = 0; //xlocation 
 	private int yloc = 0; //y location 
 	private final int xIncr = 8;//x increment
@@ -26,7 +31,7 @@ public class Model{
 	private int imgHeight; // pixel height of the image
 	
 	//LAB6
-	private boolean isMoving = false; //Keeps track whether or not the orc is moving
+	private boolean isMoving; //Keeps track whether or not the orc is moving
 	
 	
 	/*
@@ -37,18 +42,24 @@ public class Model{
 		frameHeight=height;
 		this.imgWidth = imgWidth;
 		this.imgHeight = imgHeight;
-		
-		
-//		//Checking for initial movement
-//		if(Math.abs(xIncr)>0 || Math.abs(yIncr)>0) {
-//			this.isMoving = true;
-//		}
-//		else {
-//			this.isMoving = false;
-//		}
+		isMoving=true;
 	}
-	
-	
+	//0 = normal
+	//1 = jump
+	//2 = fire
+	//wrapper methods for changing our action attribute
+	public void fire(){
+		setAction(2);
+	}
+	public void jump(){
+		setAction(1);
+	}
+	public void none(){
+		setAction(0);
+	}
+	private void setAction(int a){
+		this.action=a;
+	}
 	/*
 	 * xMult and yMult make this trivial.
 	 * changes the direction based on the boundaries of the screen, and 
@@ -126,7 +137,12 @@ public class Model{
 	public int getImgHeight() {
 		return imgHeight;
 	}
-	
+	//0 = normal
+	//1 = jump
+	//2 = fire
+	public int getAction(){
+		return action;
+	}
 	//LAB6
 	public boolean getMoving() {
 		return this.isMoving;
@@ -135,7 +151,5 @@ public class Model{
 	
 	public void setMoving(boolean moving) {
 		this.isMoving = moving;
-	}
-	
-	
+	}	
 }
