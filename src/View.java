@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -75,6 +77,7 @@ public class View extends JPanel{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setSize(frameWidth, frameHeight+50);
+		//frame.addKeyListener(this);
 		Container current_layout = frame.getContentPane(); //get's the JFrame's BorderLayout Container to add elements
 		
 		
@@ -217,6 +220,26 @@ public class View extends JPanel{
 		this.isMoving = ismoving;
 	}
 	
+	//keyPressed
+	public void keyPressed(KeyEvent e) {
+		int keyCode = e.getKeyCode();
+		if(keyCode == KeyEvent.VK_F) {
+			//fire
+			setMoving(false);
+		}
+		else if(keyCode == KeyEvent.VK_J ) {
+			//jump
+		}
+		else {
+			e.consume();
+		}
+	}
+	
+	//keyReleased
+	public void keyReleased(KeyEvent e) {
+		int keyCode = e.getKeyCode();
+		e.consume();
+	}
 	
 	
 }
